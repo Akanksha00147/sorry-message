@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ffd6ec,#e7d9ff);
+overflow:hidden;
+}
+
+.card{
+width:360px;
+background:white;
+padding:35px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+}
+
+h1{
+color:#ff4f9f;
+margin-bottom:10px;
+}
+
+p{
+color:#555;
+margin-bottom:15px;
+}
+
+button{
+background:#ff8cc8;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:20px;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#ff4f9f;
+transform:scale(1.05);
+}
+
+.hidden{
+display:none;
+}
+
+.heart{
+font-size:40px;
+cursor:pointer;
+margin:10px;
+transition:0.3s;
+}
+
+.heart:hover{
+transform:scale(1.3);
+}
+
+#typeText{
+font-weight:500;
+color:#444;
+margin-top:10px;
+min-height:50px;
+}
+
+.gif{
+width:120px;
+margin-bottom:10px;
+}
+
+.floating{
+position:absolute;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+50%{opacity:1;}
+100%{
+transform:translateY(-10vh);
+opacity:0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- Page 1 -->
+<div id="p1">
+
+<img class="gif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
+
+<h1>Hey Cutie ❤️</h1>
+<p>Can we talk for a moment?</p>
+
+<button onclick="next(1)">Continue</button>
+
+</div>
+
+<!-- Page 2 -->
+<div id="p2" class="hidden">
+
+<h1>Hey Love...</h1>
+
+<p>I know I hurt you and I feel really bad about it.</p>
+
+<button onclick="next(2)">Next</button>
+
+</div>
+
+<!-- Page 3 -->
+<div id="p3" class="hidden">
+
+<h1>Tap a Heart</h1>
+
+<span class="heart" onclick="typeMsg('I never meant to hurt you 🥺')">❤️</span>
+<span class="heart" onclick="typeMsg('You mean a lot to me 💗')">💖</span>
+<span class="heart" onclick="typeMsg('I am trying to be better 💞')">💜</span>
+
+<div id="typeText"></div>
+
+<button onclick="next(3)">Continue</button>
+
+</div>
+
+<!-- Page 4 -->
+<div id="p4" class="hidden">
+
+<h1>I LOVE YOU</h1>
+
+<p>Tap below to see what i want to say </p>
+
+<button onclick="next(4)">Open</button>
+
+</div>
+
+<!-- Page 5 -->
+<div id="p5" class="hidden">
+
+<h1>I'm Sorryyyyyy 🥺</h1>
+
+<div id="finalText"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function next(n){
+document.getElementById("p"+n).classList.add("hidden");
+document.getElementById("p"+(n+1)).classList.remove("hidden");
+
+if(n==4){
+typeFinal();
+}
+}
+
+function typeMsg(text){
+let i=0;
+let target=document.getElementById("typeText");
+target.innerHTML="";
+
+let interval=setInterval(()=>{
+target.innerHTML+=text[i];
+i++;
+if(i>=text.length){
+clearInterval(interval);
+}
+},50);
+}
+
+function typeFinal(){
+
+let text="Hey… I know you’re upset and I’m really sorry. I didn’t mean to annoy you or make you feel bad. You’re really important to me and I hate it when you’re mad at me. Please don’t stay upset for too long… I miss our normal talks already. I know i messed up so please forgive me ❤️";
+
+let i=0;
+let target=document.getElementById("finalText");
+
+let interval=setInterval(()=>{
+target.innerHTML+=text[i];
+i++;
+
+if(i>=text.length){
+clearInterval(interval);
+}
+
+},40);
+
+}
+
+/* floating hearts */
+
+function createHeart(){
+
+let heart=document.createElement("div");
+
+heart.classList.add("floating");
+
+heart.innerHTML="💗";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.fontSize=(Math.random()*20+15)+"px";
+
+heart.style.animationDuration=(Math.random()*3+3)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+}
+
+setInterval(createHeart,400);
+
+</script>
+
+</body>
+</html>
